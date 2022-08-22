@@ -1,5 +1,19 @@
 <template>
-    <div class="md:flex">
+<div>
+    <button 
+        class="text-sm bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded-full mb-4"
+        @click="$fetch"
+    >
+        Refresh
+    </button>
+    <p v-if="$fetchState.pending">Fetching mountains...</p>
+    <p v-else-if="$fetchState.error">An error occured.</p>
+    <div 
+        v-for="product in products"
+        v-else
+        :key="product.title" 
+        class="mb-4 flex felx-col text-let md:flex"
+    >
         <div class="md:flex-shrink-0">
             <img class="rounded-lg md:w-56" :src="product.image" :alt="product.title" />
         </div>
@@ -17,15 +31,26 @@
             </p>
         </div>
     </div>
+</div>
 </template>
 
 <script>
 export default {
-    props: {
-        product: {
-            type: Object,
-            default: () => {}
+    data() {
+        return {
+            products: []
         }
-    }
+    },
+    async fetch() {
+        this.products = await fetch(
+            'https://api.nuxtjs.dev/mountains'
+        ).then(res => res.json())
+    },
 }
 </script>
+
+<style lang="postcss">
+img {
+    height: 120px;
+}
+</style>

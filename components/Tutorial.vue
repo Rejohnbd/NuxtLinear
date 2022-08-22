@@ -55,6 +55,7 @@
           Welcome to your Nuxt Application
         </h2>
         <NuxtLink to="/about">About</NuxtLink>
+        <NuxtLink to="/products">Products</NuxtLink>
         <p class="mt-3 text-gray-600">
           We recommend you take a look at the
           <a
